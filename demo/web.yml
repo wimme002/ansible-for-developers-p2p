@@ -1,0 +1,35 @@
+---
+- hosts: web
+  sudo: true
+
+  tasks:
+
+    - name: Install Nginx
+      apt: pkg=nginx state=installed
+
+    - name: Install PHP
+      apt: pkg=php5-cli state=installed
+
+    - name: ensure timezone is set in cli php.ini
+      lineinfile: dest=/etc/php5/cli/php.ini
+              regexp='date.timezone ='
+              line='date.timezone = Europe/Brussels'
+
+    - name: Install php5-fpm
+      apt: pkg=php5-fpm state=latest
+
+    - name: ensure timezone is set in cli php.ini
+      lineinfile: dest=/etc/php5/fpm/php.ini
+              regexp='date.timezone ='
+              line='date.timezone = Europe/Brussels'
+      notify: Start PHP
+
+  handlers:
+    - name: Start Nginx
+      service: name=nginx state=started
+
+    - name: Reload Nginx
+      service: name=nginx state=reloaded
+
+    - name: Start PHP
+      service: name=php5-fpm state=started
