@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :main, primary:true do |main|
     main.vm.network :private_network, ip: "192.13.14.100"
-    main.vm.synced_folder ".", "/vagrant", :mount_options=> ['dmode=777,fmode=777']
+    main.vm.synced_folder ".", "/vagrant", type: "nfs", :mount_options => ['nolock,vers=3,udp,noatime,actimeo=1']
 
     main.vm.provision "shell",
         inline: "sudo sh /vagrant/provisioning/ansible.sh"
