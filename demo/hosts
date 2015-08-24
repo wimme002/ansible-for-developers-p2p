@@ -7,3 +7,9 @@
 [production:children]
 web
 db
+
+[web:vars]
+nginx_domain=www.intracto.be
+
+[db:vars]
+nginx_domain=www.king-foo.be

@@ -2,6 +2,12 @@
 - hosts: all
   sudo: true
 
+  vars:
+    http_port: 8080
+  #vars_files:
+  #  - external_vars1.yml
+  #  - external_vars2.yml
+
   roles:
     - { role: php, tags: ['php'] }
     - { role: nginx, tags: ["nginx"] }

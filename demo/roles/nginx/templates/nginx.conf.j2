@@ -1,4 +1,4 @@
 server {
-        listen 8080;
-        return 301 http://www.intracto.be$request_uri;
+        listen {{ http_port }};
+        return 301 http://{{ nginx_domain }}$request_uri;
 }

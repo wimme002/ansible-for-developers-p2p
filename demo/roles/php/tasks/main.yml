@@ -4,7 +4,7 @@
 - name: ensure timezone is set in cli php.ini
   lineinfile: dest=/etc/php5/cli/php.ini
               regexp='date.timezone ='
-              line='date.timezone = Europe/Brussels'
+              line='date.timezone = {{ php_timezone }}'
 
 - name: Install php5-fpm
   apt: pkg=php5-fpm state=latest
@@ -12,5 +12,5 @@
 - name: ensure timezone is set in cli php.ini
   lineinfile: dest=/etc/php5/fpm/php.ini
               regexp='date.timezone ='
-              line='date.timezone = Europe/Brussels'
+              line='date.timezone = {{ php_timezone }}'
   notify: Start PHP
