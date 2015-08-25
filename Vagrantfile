@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define :main, primary:true do |main|
     main.vm.network :private_network, ip: "192.13.14.100"
     main.vm.synced_folder ".", "/vagrant", type: "nfs", :mount_options => ['nolock,vers=3,udp,noatime,actimeo=1']
-
+    main.vm.hostname = "master"
     main.vm.provision "shell",
         inline: "sudo sh /vagrant/provisioning/ansible.sh"
 
@@ -26,12 +26,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define :web do |web|
-    web.vm.network :private_network, ip: "192.13.14.101"
+  config.vm.define :production do |production|
+    production.vm.hostname = "production"
+    production.vm.network :private_network, ip: "192.13.14.101"
   end
 
-  config.vm.define :db do |db|
-    db.vm.network :private_network, ip: "192.13.14.102"
+  config.vm.define :staging do |staging|
+    staging.vm.hostname = "staging"
+    staging.vm.network :private_network, ip: "192.13.14.102"
   end
 
 end
