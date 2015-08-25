@@ -1,9 +1,9 @@
-[web]
+[production]
 192.13.14.101
 
-[db]
+[staging]
 192.13.14.102
 
-[production:children]
-web
-db
+[webservers:children]
+production
+staging
